@@ -116,10 +116,29 @@
         }
 
         .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: -10px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 38px;
+            width: auto;
+            /* Zamienia czarne logo na białe i dodaje niebieski glow */
+            filter: invert(1) brightness(2) drop-shadow(0 0 8px rgba(59, 130, 246, 0.9));
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            filter: invert(1) brightness(2) drop-shadow(0 0 14px rgba(96, 165, 250, 1));
+            transform: scale(1.06);
+        }
+
+        .nav-logo-text {
             font-size: 1.5rem;
             font-weight: 800;
             color: var(--glow-light);
-            text-decoration: none;
             letter-spacing: 2px;
             text-shadow: 0 0 20px var(--glow-strong);
         }
@@ -596,6 +615,114 @@
             }
         }
 
+        /* === LISTA CHECK === */
+        .check-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--text-secondary);
+            font-size: 0.97rem;
+            line-height: 1.5;
+        }
+
+        .check-list li::before {
+            content: '✓';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--glow-soft);
+            border: 1px solid var(--border-hover);
+            color: var(--glow-light);
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* === SEKCJA DLA KOGO === */
+        .for-who-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .for-who-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .for-who-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--glow), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .for-who-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px rgba(59, 130, 246, 0.1);
+        }
+
+        .for-who-card:hover::before { opacity: 1; }
+
+        .for-who-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* === CENA BADGE === */
+        .price-box {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(59, 130, 246, 0.08) 100%);
+            border: 1px solid var(--border-hover);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .price-box p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .price-label {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--glow-light);
+            text-shadow: 0 0 20px var(--glow-medium);
+        }
+
+        @media (max-width: 768px) {
+            .for-who-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* === PARTICLES === */
         #particles-canvas {
             position: fixed;
@@ -619,9 +746,14 @@
     <!-- ============================================ -->
     <nav id="navbar">
         <div class="container">
-            <a href="#" class="nav-logo">DAREY</a>
+            <!-- EDYCJA: logo.png musi być w tym samym folderze co index.html -->
+            <a href="#" class="nav-logo">
+                <img src="logo.png" alt="Darey logo">
+                <span class="nav-logo-text">DAREY</span>
+            </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">O mnie</a></li>
+                <li><a href="#dla-kogo">Dla kogo</a></li>
                 <li><a href="#coaching">Coaching</a></li>
                 <li><a href="#achievements">Osiągnięcia</a></li>
                 <li><a href="#contact">Kontakt</a></li>
@@ -637,19 +769,19 @@
     <!-- ============================================ -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <span class="hero-badge">🎯 CS2 Coaching</span>
+            <span class="hero-badge">🎯 CS2 Coaching — Beginners & Mid-level</span>
             <h1>
-                Podnieś swoją grę<br>
-                <span class="glow-text">na wyższy poziom</span>
+                Chcesz realnie<br>
+                <span class="glow-text">progresować w CS2?</span>
             </h1>
             <p>
-                Cześć, jestem <strong>Darey</strong>. Pomagam graczom CS2 rozwijać się
-                poprzez spersonalizowane treningi, analizę meczów i praktyczne strategie.
+                Cześć, jestem <strong>Darey</strong> — 10 lvl Faceit, ~2700 ELO,
+                w peaku Top 1000 Polski. Prowadzę coachingi dla graczy początkujących
+                i średnio-zaawansowanych, którzy chcą się naprawdę rozwijać.
             </p>
             <div class="hero-buttons">
-                <!-- EDYCJA: Zmień link na swój Discord / formularz kontaktowy -->
-                <a href="#contact" class="btn btn-primary">🚀 Umów coaching</a>
-                <a href="https://www.youtube.com/@Jdarey" target="_blank" rel="noopener" class="btn btn-outline">▶️ YouTube</a>
+                <a href="#contact" class="btn btn-primary">💬 Napisz na Discordzie</a>
+                <a href="#coaching" class="btn btn-outline">📋 Zobacz ofertę</a>
             </div>
         </div>
     </section>
@@ -661,22 +793,26 @@
         <div class="container">
             <div class="about-grid reveal">
                 <div class="about-text">
-                    <span class="section-label">Dla kogo</span>
-                    <h2 class="section-title">Doświadczenie, które<br>przekłada się na wyniki</h2>
+                    <span class="section-label">O mnie</span>
+                    <h2 class="section-title">Wiem, jak dotrzeć<br>na wyższy poziom</h2>
                     <p>
-                        Gram w Counter-Strike'a od wielu lat. Moja droga od amatora do
-                        <strong>10 poziomu Faceit</strong> i <strong>Top 1000 w Polsce</strong>
-                        nauczyła mnie, co naprawdę liczy się w tej grze — nie tylko mechaniczne
-                        umiejętności, ale też game sense, komunikacja i mental.
+                        Mam <strong>10 lvl</strong> i około <strong>2700 ELO na FACEIT</strong>.
+                        W peaku osiągnąłem <strong>Top 1000 Polski</strong> na Faceit — wiem,
+                        co trzeba zrobić, żeby faktycznie rosnąć w tej grze.
                     </p>
                     <p>
-                        Na moim kanale YouTube dzielę się wiedzą, gameplayami i poradami.
-                        Teraz chcę pomóc Ci przejść na kolejny poziom poprzez indywidualne
-                        sesje coachingowe dopasowane do Twoich potrzeb.
+                        Prowadzę coachingi CS2 dla graczy <strong>początkujących
+                        i średnio-zaawansowanych</strong>, którzy chcą realnie progresować —
+                        nie tylko wbijać godziny, ale rozumieć grę i robić postępy.
                     </p>
-                    <a href="https://www.youtube.com/@Jdarey" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top: 16px;">
-                        ▶️ Odwiedź mój kanał
-                    </a>
+                    <div style="display:flex; gap: 12px; flex-wrap: wrap; margin-top: 20px;">
+                        <a href="https://www.youtube.com/@Jdarey" target="_blank" rel="noopener" class="btn btn-outline">
+                            ▶️ Mój YouTube
+                        </a>
+                        <a href="https://www.faceit.com/pl/players/jdareyy" target="_blank" rel="noopener" class="btn btn-outline">
+                            🎮 Profil Faceit
+                        </a>
+                    </div>
                 </div>
                 <div class="about-stats">
                     <!-- EDYCJA: Zmień statystyki na swoje -->
@@ -685,18 +821,77 @@
                         <span class="stat-value">Level 10</span>
                     </div>
                     <div class="stat-row">
+                        <span class="stat-label">ELO Faceit</span>
+                        <span class="stat-value">~2700 ELO</span>
+                    </div>
+                    <div class="stat-row">
                         <span class="stat-label">Peak ranking PL</span>
                         <span class="stat-value">Top 1 000</span>
                     </div>
                     <div class="stat-row">
-                        <span class="stat-label">Główna rola</span>
-                        <span class="stat-value">Entry / IGL</span>
+                        <span class="stat-label">Coaching dla</span>
+                        <span class="stat-value">Początkujący & Mid</span>
                     </div>
                     <div class="stat-row">
-                        <span class="stat-label">Doświadczenie</span>
-                        <span class="stat-value">Wieloletnie</span>
+                        <span class="stat-label">Kanał YouTube</span>
+                        <span class="stat-value">@Jdarey</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--  EDYCJA: Sekcja DLA KOGO                     -->
+    <!-- ============================================ -->
+    <section id="dla-kogo">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Dla kogo</span>
+                <h2 class="section-title">Ten coaching jest dla Ciebie, jeśli...</h2>
+                <p class="section-subtitle centered">
+                    Nie ważne na jakim jesteś poziomie — ważne, że chcesz rosnąć.
+                </p>
+            </div>
+            <div class="for-who-grid reveal">
+
+                <!-- EDYCJA: Zmień karty "dla kogo" -->
+                <div class="for-who-card">
+                    <h3>🎮 Jesteś nowy w CS2</h3>
+                    <ul class="check-list">
+                        <li>Dopiero zaczynasz swoją przygodę z CS2</li>
+                        <li>Chcesz nauczyć się gry od podstaw, bez złych nawyków</li>
+                        <li>Szukasz kogoś, kto wytłumaczy Ci mechaniki prostym językiem</li>
+                    </ul>
+                </div>
+
+                <div class="for-who-card">
+                    <h3>📈 Utknąłeś w miejscu</h3>
+                    <ul class="check-list">
+                        <li>Grasz od jakiegoś czasu, ale nie widzisz progresu</li>
+                        <li>Nie wiesz, co robisz źle i dlaczego przegrywasz</li>
+                        <li>Chcesz konkretnych wskazówek zamiast losowych porad z internetu</li>
+                    </ul>
+                </div>
+
+                <div class="for-who-card">
+                    <h3>👥 Masz drużynę, ale bez efektów</h3>
+                    <ul class="check-list">
+                        <li>Gracie razem, ale brakuje Wam organizacji i taktyki</li>
+                        <li>Komunikacja w teamie kuleje i nie umiecie się dogadać</li>
+                        <li>Chcecie zacząć grać poważniej i wbijać razem wyższe rangi</li>
+                    </ul>
+                </div>
+
+                <div class="for-who-card">
+                    <h3>🚀 Chcesz szybciej wbijać ELO</h3>
+                    <ul class="check-list">
+                        <li>Zależy Ci na konkretnym wyniku — wyższym poziomie Faceit</li>
+                        <li>Jesteś ambitny i gotowy naprawdę popracować nad grą</li>
+                        <li>Chcesz wiedzieć dokładnie, jak efektywnie trenować</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </section>
@@ -708,70 +903,89 @@
         <div class="container">
             <div class="text-center reveal">
                 <span class="section-label">Coaching</span>
-                <h2 class="section-title">Co oferuję?</h2>
+                <h2 class="section-title">Co dostajesz na coachingu?</h2>
                 <p class="section-subtitle centered">
-                    Każdy coaching jest dopasowany do Twojego poziomu i celów.
-                    Pracujemy nad tym, co naprawdę potrzebujesz.
+                    Każda sesja jest spersonalizowana — zaczynamy od rozmowy,
+                    żeby wiedzieć dokładnie, nad czym pracować.
                 </p>
             </div>
             <div class="cards-grid">
 
                 <!-- EDYCJA: Dodaj / usuń / zmień karty -->
                 <div class="card reveal">
-                    <div class="card-icon">🎯</div>
-                    <h3>Indywidualny Aim Training</h3>
+                    <div class="card-icon">💬</div>
+                    <h3>Rozmowa wstępna</h3>
                     <p>
-                        Spersonalizowane ćwiczenia celności i mechaniki. Pracujemy nad
-                        crosshair placementem, flickami, trackingiem i kontrolą recoilu.
+                        Zaczynamy od krótkiej rozmowy — poznaję Cię, sprawdzam
+                        Twój poziom, styl gry i podejście do nauki. Bez tego nie
+                        ma sensu zaczynać coachingu.
                     </p>
                 </div>
 
                 <div class="card reveal">
-                    <div class="card-icon">🧠</div>
-                    <h3>Game Sense & Strategie</h3>
+                    <div class="card-icon">🎯</div>
+                    <h3>Ustalamy Twoje cele</h3>
                     <p>
-                        Nauczysz się czytać grę przeciwnika, podejmować lepsze decyzje
-                        i rozumieć makrogrywę. Analiza utility, rotacji i timingów.
+                        Razem definiujemy cel — czy to konkretny poziom Faceit,
+                        lepsza mechanika czy współpraca w drużynie. Dobieramy
+                        najlepszy plan nauki pod Ciebie.
                     </p>
                 </div>
 
                 <div class="card reveal">
                     <div class="card-icon">📊</div>
-                    <h3>Analiza VOD / Meczów</h3>
+                    <h3>Analiza Twojej gry</h3>
                     <p>
-                        Przeprowadzam szczegółową analizę Twoich meczów. Wskazuję błędy,
-                        dobre decyzje i konkretne obszary do poprawy z przykładami.
-                    </p>
-                </div>
-
-                <div class="card reveal">
-                    <div class="card-icon">🗣️</div>
-                    <h3>Komunikacja & Teamplay</h3>
-                    <p>
-                        Efektywna komunikacja to klucz do wygranych rund. Nauczę Cię
-                        jak callować, koordynować z teamem i być lepszym graczem drużynowym.
+                        Dokładna analiza Twoich meczów i decyzji w grze. Wskazuję
+                        konkretne błędy i dobre nawyki — z praktycznymi wskazówkami,
+                        co poprawić i jak to zrobić.
                     </p>
                 </div>
 
                 <div class="card reveal">
                     <div class="card-icon">🗺️</div>
-                    <h3>Map Knowledge & Setupy</h3>
+                    <h3>Taktyki i granaty zespołowo</h3>
                     <p>
-                        Poznaj najlepsze linie granatów, pozycje defensywne i agresywne
-                        setupy na każdej mapie. Od Mirage'a po Ancient.
+                        Ułożymy proste i skuteczne taktyki na mapach. Nauczysz się
+                        wykorzystywać granaty zespołowo i rozumieć, jak utility
+                        zmienia wynik rundy.
                     </p>
                 </div>
 
                 <div class="card reveal">
-                    <div class="card-icon">💪</div>
-                    <h3>Mental & Rutyna Treningowa</h3>
+                    <div class="card-icon">🗣️</div>
+                    <h3>Komunikacja i współpraca</h3>
                     <p>
-                        Pomagam zbudować efektywną rutynę treningową i pracować nad
-                        mentalem — tilt, pewność siebie i koncentracja pod presją.
+                        Pracujemy nad tym, jak efektywnie komunikować się w drużynie.
+                        Poprawna komunikacja to jeden z najważniejszych elementów,
+                        który oddziela graczy na różnych poziomach.
+                    </p>
+                </div>
+
+                <div class="card reveal">
+                    <div class="card-icon">🏅</div>
+                    <h3>Coaching dla całego teamu</h3>
+                    <p>
+                        Chcesz założyć własny team? Pomogę dobrać role i styl gry,
+                        zaplanujemy treningi drużynowe i zbudujemy fundament,
+                        na którym można realnie rosnąć.
                     </p>
                 </div>
 
             </div>
+
+            <!-- EDYCJA: Cena i kontakt -->
+            <div class="price-box reveal">
+                <div class="price-label">💰 Cena ustalana indywidualnie</div>
+                <p>
+                    Cena zależy od poziomu, formy współpracy i liczby godzin.<br>
+                    Wszystko ustalamy indywidualnie — napisz do mnie, a dogadamy szczegóły.
+                </p>
+                <a href="#contact" class="btn btn-primary" style="margin-top: 20px; display: inline-flex;">
+                    💬 Zapytaj o cenę
+                </a>
+            </div>
+
         </div>
     </section>
 
@@ -784,7 +998,7 @@
                 <span class="section-label">Osiągnięcia</span>
                 <h2 class="section-title">Liczby mówią za siebie</h2>
                 <p class="section-subtitle centered">
-                    Moje osiągnięcia potwierdzają, że wiem, o czym mówię.
+                    Wiem, o czym mówię — te liczby to nie marketing, to fakt.
                 </p>
             </div>
             <div class="achievements-grid reveal">
@@ -795,19 +1009,19 @@
                     <div class="achievement-label">Poziom Faceit</div>
                 </div>
                 <div class="achievement">
+                    <span class="achievement-icon">⚡</span>
+                    <div class="achievement-value">~2700</div>
+                    <div class="achievement-label">ELO na Faceit</div>
+                </div>
+                <div class="achievement">
                     <span class="achievement-icon">🇵🇱</span>
                     <div class="achievement-value">TOP 1K</div>
-                    <div class="achievement-label">Ranking Polska</div>
+                    <div class="achievement-label">Peak ranking Polska</div>
                 </div>
                 <div class="achievement">
                     <span class="achievement-icon">▶️</span>
                     <div class="achievement-value">YouTube</div>
                     <div class="achievement-label">Kreator treści CS2</div>
-                </div>
-                <div class="achievement">
-                    <span class="achievement-icon">🎮</span>
-                    <div class="achievement-value">CS2</div>
-                    <div class="achievement-label">Wieloletnie doświadczenie</div>
                 </div>
             </div>
         </div>
@@ -821,20 +1035,40 @@
             <div class="cta-box reveal">
                 <h2>Gotowy na <span class="glow-text">następny poziom</span>?</h2>
                 <p>
-                    Napisz do mnie i umów się na indywidualną sesję coachingową.
-                    Razem przepracujemy Twoje słabe strony i wzmocnimy mocne.
+                    Napisz do mnie na Discordzie — pogadamy o Twoim poziomie,
+                    celach i ustalimy wszystkie szczegóły. Pierwsze pytanie nic nie kosztuje. 😉
                 </p>
+
+                <!-- EDYCJA: Główny kontakt — Discord -->
+                <div style="margin: 28px 0;">
+                    <div style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 12px;
+                        background: rgba(88,101,242,0.12);
+                        border: 1px solid rgba(88,101,242,0.4);
+                        border-radius: 14px;
+                        padding: 18px 32px;
+                        font-size: 1.3rem;
+                        font-weight: 800;
+                        color: #c9ceff;
+                        letter-spacing: 0.5px;
+                    ">
+                        <!-- Discord icon SVG -->
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="#5865F2" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                        Jdarey
+                    </div>
+                </div>
+
                 <div class="cta-buttons">
-                    <!-- EDYCJA: Zmień linki na swoje — Discord, email, DM -->
+                    <!-- EDYCJA: Zmień linki -->
                     <a href="https://www.youtube.com/@Jdarey" target="_blank" rel="noopener" class="btn btn-primary">
                         ▶️ YouTube
                     </a>
                     <a href="https://www.faceit.com/pl/players/jdareyy" target="_blank" rel="noopener" class="btn btn-outline">
-                        🎮 Faceit
-                    </a>
-                    <!-- EDYCJA: Tutaj wstaw swój Discord / email / link do kontaktu -->
-                    <a href="mailto:twoj@email.com" class="btn btn-outline">
-                        ✉️ Napisz do mnie
+                        🎮 Profil Faceit
                     </a>
                 </div>
             </div>
@@ -846,7 +1080,18 @@
     <!-- ============================================ -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 <a href="#">Darey</a> — CS2 Coaching. Wszystkie prawa zastrzeżone.</p>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+                <a href="#" class="nav-logo" style="justify-content:center;">
+                    <img src="logo.png" alt="Darey logo" style="height:32px;">
+                    <span class="nav-logo-text" style="font-size:1.2rem;">DAREY</span>
+                </a>
+                <p style="text-align:center;">
+                    &copy; 2025 <strong style="color:var(--glow-light);">Darey</strong> — CS2 Coaching &nbsp;|&nbsp;
+                    Discord: <strong style="color: var(--glow-light);">Jdarey</strong> &nbsp;|&nbsp;
+                    <a href="https://www.youtube.com/@Jdarey" target="_blank" rel="noopener">YouTube</a> &nbsp;|&nbsp;
+                    <a href="https://www.faceit.com/pl/players/jdareyy" target="_blank" rel="noopener">Faceit</a>
+                </p>
+            </div>
         </div>
     </footer>
 
